@@ -1,7 +1,15 @@
 export default class NotesAPI {
-  static getAllNotes() {}
+  static getAllNotes() {
+    const notes = JSON.parse(localStorage.getItem('note-app-notes') || '[]');
 
-  static saveNote(noteToSave) {}
+    return notes.sort((a, b) => {
+      return new Date(a.updated) > new Date(b.updated) ? -1 : 1;
+    });
+  }
+
+  static saveNote(noteToSave) {
+    
+  }
 
   static deleteNote(id) {}
 }
