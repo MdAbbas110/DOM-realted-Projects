@@ -8,18 +8,16 @@ export default class NotesView {
     this.onNoteAdd = onNoteAdd;
     this.onNoteEdit = onNoteEdit;
     this.onNoteDelete = onNoteDelete;
-
     this.root.innerHTML = `
-    <div class="notes__sidebar">
-        <button class="notes__add" type="button">Add Notes</button>
-        <div class="notes__lists"></div>
-    </div>
-
-    <div class="notes__preview">
-        <input class="notes__title" type="text" placeholder="New Note..." />
-        <textarea class="notes__body">Take Note...</textarea>
-    </div>
-    `;
+          <div class="notes__sidebar">
+              <button class="notes__add" type="button">Add Note</button>
+              <div class="notes__list"></div>
+          </div>
+          <div class="notes__preview">
+              <input class="notes__title" type="text" placeholder="New Note...">
+              <textarea class="notes__body">Take Note...</textarea>
+          </div>
+      `;
 
     const btnAddNote = this.root.querySelector('.notes__add');
     const inpTitle = this.root.querySelector('.notes__title');
@@ -38,7 +36,6 @@ export default class NotesView {
       });
     });
 
-    // a todo hide the note preview by default
     this.updateNotePreviewVisibility(false);
   }
 
@@ -46,26 +43,26 @@ export default class NotesView {
     const MAX_BODY_LENGTH = 60;
 
     return `
-        <div class="notes__list-item" data-note-id="${id}">
-            <div class="notes__small-title">${title}</div>
-            <div class=""notes__small-body">
-            ${body.substring(0, MAX_BODY_LENGTH)}
-            ${body.length > MAX_BODY_LENGTH ? '...' : ''}
-            </div>
-            <div class="notes__small-updated">
-            ${updated.toLocaleString(undefined, {
-              dateStyle: 'full',
-              timeStyle: 'short',
-            })}
-            </div>
-        </div>
-    `;
+          <div class="notes__list-item" data-note-id="${id}">
+              <div class="notes__small-title">${title}</div>
+              <div class="notes__small-body">
+                  ${body.substring(0, MAX_BODY_LENGTH)}
+                  ${body.length > MAX_BODY_LENGTH ? '...' : ''}
+              </div>
+              <div class="notes__small-updated">
+                  ${updated.toLocaleString(undefined, {
+                    dateStyle: 'full',
+                    timeStyle: 'short',
+                  })}
+              </div>
+          </div>
+      `;
   }
 
   updateNoteList(notes) {
-    const notesListContainer = this.root.querySelector('.notes__lists');
+    const notesListContainer = this.root.querySelector('.notes__list');
 
-    // empty the list
+    // Empty list
     notesListContainer.innerHTML = '';
 
     for (const note of notes) {
@@ -79,14 +76,13 @@ export default class NotesView {
       notesListContainer.insertAdjacentHTML('beforeend', html);
     }
 
-    //? Add select/delete events for each list item
+    // Add select/delete events for each list item
     notesListContainer
       .querySelectorAll('.notes__list-item')
       .forEach((noteListItem) => {
-        noteListItem,
-          addEventListener('click', () => {
-            this.onNoteSelect(noteListItem.dataset.noteId);
-          });
+        noteListItem.addEventListener('click', () => {
+          this.onNoteSelect(noteListItem.dataset.noteId);
+        });
 
         noteListItem.addEventListener('dblclick', () => {
           const doDelete = confirm(
@@ -94,7 +90,7 @@ export default class NotesView {
           );
 
           if (doDelete) {
-            this.onNoteDelete(noteListItem.dataset.noteID);
+            this.onNoteDelete(noteListItem.dataset.noteId);
           }
         });
       });
@@ -109,7 +105,7 @@ export default class NotesView {
     });
 
     this.root
-      .querySelector(`.notes__list-item[data-note-id='${note.id}']`)
+      .querySelector(`.notes__list-item[data-note-id="${note.id}"]`)
       .classList.add('notes__list-item--selected');
   }
 
