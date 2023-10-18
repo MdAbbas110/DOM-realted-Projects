@@ -34,11 +34,18 @@ export default class App {
   _handlers() {
     return {
       onNoteSelect: (noteId) => {
-        console.log('Note Selected: ' + noteId);
+        const selectedNote = this.notes.find((note) => note.id == noteId);
+        this._setActiveNote(selectedNote);
       },
 
       onNoteAdd: () => {
-        console.log('Note Add');
+        const newNote = {
+          title: 'New Note',
+          body: 'Take Note...',
+        };
+
+        NotesAPI.saveNote(newNote);
+        this._refreshNotes();
       },
 
       onNoteEdit: (title, body) => {

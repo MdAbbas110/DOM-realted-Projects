@@ -38,8 +38,6 @@ export default class NotesView {
       });
     });
 
-    console.log(this._createListItemHTML(3422, 'title', 'body', new Date()));
-
     // a todo hide the note preview by default
     this.updateNotePreviewVisibility(false);
   }
