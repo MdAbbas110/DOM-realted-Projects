@@ -13,14 +13,18 @@ export default class App {
   _refreshNotes() {
     const notes = NotesAPI.getAllNotes();
 
-    this.setNotes(notes);
+    this._setNotes(notes);
 
     if (notes.length > 0) {
       this._setActiveNote(notes[0]);
     }
   }
 
-  _setNotes() {}
+  _setNotes(notes) {
+    this.notes = notes;
+    this.view.updateNoteList(notes);
+    this.view.updateNotePreviewVisibility(notes.length > 0);
+  }
 
   _setActiveNote(note) {
     this.activeNote = note;
