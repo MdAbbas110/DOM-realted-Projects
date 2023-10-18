@@ -22,4 +22,7 @@ const view = new NotesView(app, {
   },
 });
 
-view.updateNoteList(NotesAPI.getAllNotes());
+const notes = NotesAPI.getAllNotes();
+
+view.updateNoteList(notes);
+view.updateActiveNote(notes[0]);
