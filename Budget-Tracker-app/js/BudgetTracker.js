@@ -57,7 +57,7 @@ export default class BudgetTracker {
       <td>
         <input
           type="text"
-          class="input input-description"
+          class="input input-Description"
           placeholder="Add a Description"
         />
       </td>
@@ -96,6 +96,23 @@ export default class BudgetTracker {
     this.root
       .querySelector('.entries')
       .insertAdjacentHTML('beforeend', BudgetTracker.entryHtml());
+
+    const row = this.root.querySelector('.entries tr:last-of-type');
+
+    row.querySelector('.input-date').value =
+      entry.date || new Date().toISOString().replace(/T.*/, '');
+
+    row.querySelector('.input-Description').value = entry.description || '';
+    row.querySelector('.input-type').value = entry.type || 'income';
+    row.querySelector('.input-amount').value = entry.amount || 0;
+
+    row.querySelector('.delete-entry').addEventListener('click', (e) => {
+      this.onDeleteEntryBtnClick(e);
+    });
+
+    row.querySelectorAll('.input').forEach((input) => {
+      input.addEventListener('change', () => this.save());
+    });
   }
 
   getEntryRows() {}
@@ -104,5 +121,7 @@ export default class BudgetTracker {
     this.addEntry();
   }
 
-  onDeleteEntryBtnClick() {}
+  onDeleteEntryBtnClick(e) {
+    console.log('Entry deleted');
+  }
 }
