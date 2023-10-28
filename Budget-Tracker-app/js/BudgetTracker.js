@@ -90,7 +90,13 @@ export default class BudgetTracker {
 
   updateSummary() {}
 
-  save() {}
+  save() {
+    const data = this.getEntryRows().map((row) => {
+      return {
+        date: row.querySelector('.input-date').value,
+      };
+    });
+  }
 
   addEntry(entry = {}) {
     this.root
@@ -103,7 +109,7 @@ export default class BudgetTracker {
       entry.date || new Date().toISOString().replace(/T.*/, '');
 
     row.querySelector('.input-Description').value = entry.description || '';
-    row.querySelector('.input-type').value = entry.type || 'income';
+    row.querySelector('.input-type').value = entry.type || 'Income';
     row.querySelector('.input-amount').value = entry.amount || 0;
 
     row.querySelector('.delete-entry').addEventListener('click', (e) => {
@@ -115,7 +121,9 @@ export default class BudgetTracker {
     });
   }
 
-  getEntryRows() {}
+  getEntryRows() {
+    return Array.from(this.root.querySelector('.entries tr'));
+  }
 
   onNewEntryBtnClick() {
     this.addEntry();
