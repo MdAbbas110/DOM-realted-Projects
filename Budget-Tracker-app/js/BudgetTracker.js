@@ -94,8 +94,12 @@ export default class BudgetTracker {
     const data = this.getEntryRows().map((row) => {
       return {
         date: row.querySelector('.input-date').value,
+        description: row.querySelector('.input-description').value,
+        type: row.querySelector('.input-type').value,
+        amount: parseFloat(row.querySelector('.input-amount').value),
       };
     });
+    console.log(data);
   }
 
   addEntry(entry = {}) {
