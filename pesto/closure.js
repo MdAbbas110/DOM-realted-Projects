@@ -11,3 +11,13 @@ function clo() {
 
 const take = col();
 //now the value is in take as well
+
+//if there will be more senior like this the concept of  lexical scope also comes up in this particular place only
+
+function lex(params) {
+  return function ab(params) {
+    return function cb() {
+      console.log('a');
+    };
+  };
+}
