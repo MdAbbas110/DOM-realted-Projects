@@ -21,3 +21,8 @@ function lex(params) {
     };
   };
 }
+
+const taking = lec();
+console.log(taking);
+//Now taking has all the chain of scope that is there
+//but with some condition
